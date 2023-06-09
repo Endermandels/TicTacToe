@@ -1,10 +1,10 @@
 EXEC = tictactoe
-OBJS = main.o
+OBJS = main.o server.o client.o socketUtil.o
 CCFLAGS = gcc -Wall
 CACHE = .cache
 
 ${EXEC}: ${OBJS}
-	${CCFLAGS} -o ${EXEC} ${OBJS} -lncurses
+	${CCFLAGS} -o ${EXEC} ${OBJS}
 	make cache
 
 # if the cache does not exist, create it
@@ -18,13 +18,25 @@ ${CACHE}:
 	mkdir -p $@
 
 main.o: main.c
-	${CCFLAGS} -c main.c -o main.o
+	${CCFLAGS} -c main.c
 
-run: ${EXEC}
-	./${CACHE}/${EXEC}
+server.o: server.c
+	${CCFLAGS} -c server.c
 
-runv: ${EXEC}
-	valgrind ./${CACHE}/${EXEC}
+client.o: client.c
+	${CCFLAGS} -c client.c
 
-runvc: ${EXEC}
-	valgrind --leak-check=full ./${CACHE}/${EXEC}
+socketUtil.o: socketUtil.c
+	${CCFLAGS} -c socketUtil.c
+
+runcl: ${EXEC}
+	./${CACHE}/${EXEC} client
+
+runsv: ${EXEC}
+	./${CACHE}/${EXEC} server
+
+runvcl: ${EXEC}
+	valgrind ./${CACHE}/${EXEC} client
+
+runvsv: ${EXEC}
+	valgrind ./${CACHE}/${EXEC} server
