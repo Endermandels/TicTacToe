@@ -81,18 +81,34 @@ void startAcceptingIncomingConnections(int serverSocketFD) {
 }
 
 int setupServer() {
-
+    // Create socket
     int serverSocketFD = createTCPIpv4Socket();
+    if (serverSocketFD < 0) {
+        puts("Socket creation failure");
+        return 1;
+    }
+
+    // Create address
     struct sockaddr_in *serverAddress = createTCPIpv4Address("", 2000); // Empty string indicates local host
+    if (!serverAddress) {
+        return 1;
+    }
 
     // Request access to listen for incoming connections to port 2000
     int result = bind(serverSocketFD, serverAddress, sizeof(*serverAddress));
 
     if (result == 0) {
         puts("Server socket was bound successfully");
+    } else {
+        puts("Server socket was bound unsuccessfully");
+        return 1;
     }
 
     int listenResult = listen(serverSocketFD, 10);
+    if (listenResult < 0) {
+        puts("Server unable to listen");
+        return 1;
+    }
 
     startAcceptingIncomingConnections(serverSocketFD);
 

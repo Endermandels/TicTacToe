@@ -23,17 +23,28 @@ void startListeningAndPrintMessagesOnNewThread(int socketFD) {
 }
 
 int setupClient() {
-    // Create socket and address
+    // Create socket
     int socketFD = createTCPIpv4Socket();
+    if (socketFD < 0) {
+        puts("Socket creation failure");
+        return 1;
+    }
+
+    // Create address
     char *ip = "127.0.0.1"; // Local address
     struct sockaddr_in *address = createTCPIpv4Address(ip, 2000);
+    if (!address) {
+        return 1;
+    }
 
     // Connect socket to server at address
     int result = connect(socketFD, address, sizeof(*address));
     free(address);
-
     if (result == 0) {
         puts("Client connection was successful!");
+    } else {
+        puts("Client connection failed");
+        return 1;
     }
 
     char *name = NULL;
@@ -62,6 +73,9 @@ int setupClient() {
                 break;
             }
             ssize_t amountSent = send(socketFD, buffer, strlen(buffer), 0);
+            if (amountSent < 0) {
+                puts("Something went wrong in sending the message");
+            }
         }
     }
 

@@ -14,8 +14,8 @@ Description:
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "client.h"
-#include "server.h"
+#include "sockets/client.h"
+#include "sockets/server.h"
 
 int main(int argc, char const *argv[])
 {
@@ -30,6 +30,8 @@ int main(int argc, char const *argv[])
             if (err) {
                 return err;
             }
+        } else if (!strcmp(argv[1], "single-player-game")) {
+            puts("Single player game");
         } else {
             puts("Invalid argument.  Please specify 'client' or 'server'");
             return 1;

@@ -20,20 +20,26 @@ ${CACHE}:
 main.o: main.c
 	${CCFLAGS} -c main.c
 
-server.o: server.c
-	${CCFLAGS} -c server.c
+server.o: sockets/server.c
+	${CCFLAGS} -c sockets/server.c
 
-client.o: client.c
-	${CCFLAGS} -c client.c
+client.o: sockets/client.c
+	${CCFLAGS} -c sockets/client.c
 
-socketUtil.o: socketUtil.c
-	${CCFLAGS} -c socketUtil.c
+socketUtil.o: sockets/socketUtil.c
+	${CCFLAGS} -c sockets/socketUtil.c
+
+runsp: ${EXEC}
+	./${CACHE}/${EXEC} single-player-game
 
 runcl: ${EXEC}
 	./${CACHE}/${EXEC} client
 
 runsv: ${EXEC}
 	./${CACHE}/${EXEC} server
+
+runvsp: ${EXEC}
+	valgrind ./${CACHE}/${EXEC} single-player-game
 
 runvcl: ${EXEC}
 	valgrind ./${CACHE}/${EXEC} client
