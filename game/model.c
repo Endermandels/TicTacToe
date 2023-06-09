@@ -43,11 +43,39 @@ bool yInBounds(int y) {
     return y >= BOARDY && y < BOARDY + BOARDHEIGHT;
 }
 
-bool gameWon() {
-    // Check for all scenarios
-    if (board[BOARDX][BOARDY] == 'X') {
+bool gameWon(char player) {
+    // Horizontals
+    for (int ii = 0; ii < 3; ii++) {
+        if (board[BOARDX][BOARDY+ii] == player && board[BOARDX+1][BOARDY+ii] == player && board[BOARDX+2][BOARDY+ii] == player) {
+            return true;
+        }
+    }
+
+    // Verticals
+    for (int ii = 0; ii < 3; ii++) {
+        if (board[BOARDX+ii][BOARDY] == player && board[BOARDX+ii][BOARDY+1] == player && board[BOARDX+ii][BOARDY+2] == player) {
+            return true;
+        }
+    }
+
+    // Diagonal Top Left
+    if (board[BOARDX][BOARDY] == player && board[BOARDX+1][BOARDY+1] == player && board[BOARDX+2][BOARDY+2] == player) {
+        return true;
+    }
+
+    // Diagonal Top Right
+    if (board[BOARDX+2][BOARDY] == player && board[BOARDX+1][BOARDY+1] == player && board[BOARDX][BOARDY+2] == player) {
         return true;
     }
 
     return false;
+}
+
+bool tie() {
+    for (int ii = 0; ii < 3; ii++) {
+        for (int jj = 0; jj < 3; jj++) {
+            if (board[BOARDX+ii][BOARDY+jj] == ' ') return false;
+        }
+    }
+    return true;
 }

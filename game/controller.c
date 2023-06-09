@@ -12,9 +12,12 @@ int startGame() {
 
     initBoard();
 
-    while (!gameWon()) {
+    while (!gameWon('X')) {
         showBoard();
         userInput();
+        if (tie()) {
+            break;
+        }
     }
 
     showBoard();

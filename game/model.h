@@ -11,6 +11,7 @@ void placeX(int x, int y);
 void placeO(int x, int y);
 bool xInBounds(int x);
 bool yInBounds(int y);
-bool gameWon();
+bool gameWon(char player);
+bool tie();
 
 #endif
