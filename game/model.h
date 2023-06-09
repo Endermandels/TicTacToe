@@ -1,9 +1,14 @@
 #ifndef MODEL
 #define MODEL
 
-#define BOARDWIDTH 5
-#define BOARDHEIGHT 5
+#include <stdbool.h>
+
+#define BOARDWIDTH 3
+#define BOARDHEIGHT 3
 
 void initBoard();
+void placeX(int x, int y);
+void placeO(int x, int y);
+bool gameWon();
 
 #endif

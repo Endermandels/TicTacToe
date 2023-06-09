@@ -18,7 +18,15 @@ void initBoard() {
                     continue;
                 }
             }
-            board[xx][yy] = 'X';
+            board[xx][yy] = '-';
         }
     }
+}
+
+void placeX(int x, int y) {
+    board[x][y] = 'X';
+}
+
+void placeO(int x, int y) {
+    board[x][y] = 'O';
 }

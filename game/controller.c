@@ -5,9 +5,7 @@
 #include "ui.h"
 #include "model.h"
 
-#define ITERATIONS 300
-
-#define REFRESH_DELAY 50000L // 50 ms delay
+#define ITERATIONS 10
 
 int startGame() {
     if (!initUI()) {
@@ -18,8 +16,12 @@ int startGame() {
 
     for (int ii = 0; ii < ITERATIONS; ii++) {
         showBoard();
-        usleep(REFRESH_DELAY);
+        userInput();
     }
+
+    showBoard();
+
+    usleep(1000000);
 
     cleanupUI();
 
