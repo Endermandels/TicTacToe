@@ -5,8 +5,6 @@
 #include "ui.h"
 #include "model.h"
 
-#define ITERATIONS 10
-
 int startGame() {
     if (!initUI()) {
         return 1;
@@ -14,7 +12,7 @@ int startGame() {
 
     initBoard();
 
-    for (int ii = 0; ii < ITERATIONS; ii++) {
+    while (!gameWon()) {
         showBoard();
         userInput();
     }

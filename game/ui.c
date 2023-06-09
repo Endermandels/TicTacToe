@@ -61,13 +61,13 @@ void userInput() {
         if (input == '\n') {
             placeX(cursorX, cursorY);
         } else if (input == KEY_UP) {
-            cursorY -= 1;
+            if (yInBounds(cursorY-1)) cursorY -= 1;
         } else if (input == KEY_DOWN) {
-            cursorY += 1;
+            if (yInBounds(cursorY+1)) cursorY += 1;
         } else if (input == KEY_LEFT) {
-            cursorX -= 1;
+            if (xInBounds(cursorX-1)) cursorX -= 1;
         } else if (input == KEY_RIGHT) {
-            cursorX += 1;
+            if (xInBounds(cursorX+1)) cursorX += 1;
         } else {
             input = 0;
         }
