@@ -16,6 +16,7 @@ Description:
 #include <string.h>
 #include "sockets/client.h"
 #include "sockets/server.h"
+#include "game/controller.h"
 
 int main(int argc, char const *argv[])
 {
@@ -31,7 +32,10 @@ int main(int argc, char const *argv[])
                 return err;
             }
         } else if (!strcmp(argv[1], "single-player-game")) {
-            puts("Single player game");
+            int err = startGame();
+            if (err) {
+                return err;
+            }
         } else {
             puts("Invalid argument.  Please specify 'client' or 'server'");
             return 1;

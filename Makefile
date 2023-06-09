@@ -1,10 +1,10 @@
 EXEC = tictactoe
-OBJS = main.o server.o client.o socketUtil.o
+OBJS = main.o server.o client.o socketUtil.o controller.o model.o ui.o
 CCFLAGS = gcc -Wall
 CACHE = .cache
 
 ${EXEC}: ${OBJS}
-	${CCFLAGS} -o ${EXEC} ${OBJS}
+	${CCFLAGS} -o ${EXEC} ${OBJS} -lncurses
 	make cache
 
 # if the cache does not exist, create it
@@ -28,6 +28,15 @@ client.o: sockets/client.c
 
 socketUtil.o: sockets/socketUtil.c
 	${CCFLAGS} -c sockets/socketUtil.c
+
+controller.o: game/controller.c
+	${CCFLAGS} -c game/controller.c
+
+model.o: game/model.c
+	${CCFLAGS} -c game/model.c
+
+ui.o: game/ui.c
+	${CCFLAGS} -c game/ui.c
 
 runsp: ${EXEC}
 	./${CACHE}/${EXEC} single-player-game
